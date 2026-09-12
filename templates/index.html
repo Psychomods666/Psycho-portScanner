@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+ 
+<meta name="theme-color" content="#070909">
+<meta name="description" content="PsychoPort Network Intelligence">
+
+<title>PsychoPort — Network Intelligence</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="/static/style.css">
+ 
+
+</head>
+
+<body>
+
+<div class="noise"></div>
+
+<div class="ambient">
+    <div class="orb orb-a"></div>
+    <div class="orb orb-b"></div>
+    <div class="orb orb-c"></div>
+</div>
+
+<div class="app-shell">
+
+ 
+<!-- SIDEBAR -->
+<aside class="sidebar glass">
+
+    <div class="brand">
+        <div class="brand-mark">
+            <span>P</span>
+        </div>
+
+        <div class="brand-copy">
+            <div class="brand-name">PSYCHOPORT</div>
+            <div class="brand-sub">NETWORK INTELLIGENCE</div>
+        </div>
+
+        <button class="mobile-close" onclick="toggleSidebar()">×</button>
+    </div>
+
+    <div class="sidebar-line"></div>
+
+    <nav class="navigation">
+
+        <div class="nav-label">WORKSPACE</div>
+
+        <button class="nav-item active" data-section="overview" onclick="goToSection('overview')">
+            <span class="nav-icon">◉</span>
+            <span>Overview</span>
+        </button>
+
+        <button class="nav-item" data-section="scanner" onclick="focusScanner()">
+            <span class="nav-icon">⌁</span>
+            <span>Live Scanner</span>
+        </button>
+
+        <button class="nav-item" data-section="history" onclick="focusHistory()">
+            <span class="nav-icon">◷</span>
+            <span>Activity</span>
+        </button>
+
+        <button class="nav-item" onclick="exportReport()">
+            <span class="nav-icon">▣</span>
+            <span>Reports</span>
+        </button>
+
+        <div class="nav-label nav-label-settings">SYSTEM</div>
+
+        <button class="nav-item" onclick="openSettings()">
+            <span class="nav-icon">⚙</span>
+            <span>Settings</span>
+        </button>
+
+    </nav>
+
+    <div class="sidebar-bottom">
+
+        <div class="system-card">
+
+            <div class="system-title">
+                SYSTEM STATUS
+            </div>
+
+            <div class="system-row">
+                <span class="status-dot"></span>
+                <span>Backend Online</span>
+                <b>OK</b>
+            </div>
+
+            <div class="system-row">
+                <span class="status-dot"></span>
+                <span>Scanner Ready</span>
+                <b>READY</b>
+            </div>
+
+        </div>
+
+        <div class="version">
+            PSYCHOPORT // v2.0
+        </div>
+
+    </div>
+
+</aside>
+
+
+<!-- MOBILE OVERLAY -->
+<div class="sidebar-overlay" onclick="toggleSidebar()"></div>
+
+
+<!-- MAIN -->
+<main class="main" id="overview">
+
+    <!-- MOBILE TOP -->
+    <div class="mobile-top glass">
+        <button class="menu-button" onclick="toggleSidebar()">☰</button>
+
+        <div class="mobile-brand">
+            <strong>PSYCHOPORT</strong>
+            <span>NETWORK INTELLIGENCE</span>
+        </div>
+
+        <button class="mobile-settings" onclick="openSettings()">⚙</button>
+    </div>
+
+
+    <!-- TOPBAR -->
+    <header class="topbar reveal">
+
+        <div class="heading-block">
+
+            <div class="eyebrow">
+                SECURITY OPERATIONS // 01
+            </div>
+
+            <h1>
+                Network <span>Overview</span>
+            </h1>
+
+            <p>
+                Real-time TCP port intelligence and service exposure.
+            </p>
+
+        </div>
+
+        <div class="top-actions">
+
+            <div class="clock" id="clock">
+                00:00:00
+            </div>
+
+            <div class="top-status glass">
+
+                <span class="status-dot"></span>
+
+                <div>
+                    <strong id="statusText">READY</strong>
+                    <small>Scanner online</small>
+                </div>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- SCANNER -->
+    <section id="scannerSection" class="scanner glass reveal">
+
+        <div class="scanner-glow"></div>
+
+        <div class="scanner-top">
+
+            <div>
+                <div class="eyebrow">LIVE SCANNER</div>
+
+                <h2>
+                    Target Intelligence
+                </h2>
+
+                <p class="section-description">
+                    Analyze authorized hosts and identify exposed TCP services.
+                </p>
+            </div>
+
+            <div class="scan-badge">
+                <span></span>
+                AUTHORIZED TESTING
+            </div>
+
+        </div>
+
+
+        <div class="target-row">
+
+            <div class="target-input glass-inner">
+
+                <span class="input-symbol">⌖</span>
+
+                <input
+                    id="target"
+                    type="text"
+                    placeholder="Enter domain or IP address"
+                    autocomplete="off"
+                >
+
+                <span class="input-hint">
+                    TARGET
+                </span>
+
+            </div>
+
+            <button id="scanBtn" class="scan-button" onclick="startScan()">
+                <span class="scan-button-icon"></span>
+                <span>START SCAN</span>
+                <span class="button-arrow">↗</span>
+            </button>
+
+            <button id="stopBtn" class="stop-button" onclick="stopScan()" disabled>
+                STOP
+            </button>
+
+        </div>
+
+
+        <label class="authorization">
+
+            <input id="authorized" type="checkbox">
+
+            <span>
+                I confirm that I am authorized to scan this target.
+            </span>
+
+            <span class="auth-status">
+                AUTH REQUIRED
+            </span>
+
+        </label>
+
+
+        <!-- PROFILES -->
+        <div class="profile-section">
+
+            <div class="profile-header">
+                <span>SCAN PROFILE</span>
+
+                <span id="profileDescription">
+                    Common service ports
+                </span>
+            </div>
+
+            <div class="profiles">
+
+                <button class="profile active" data-mode="quick">
+                    <div class="profile-number">01</div>
+                    <strong>QUICK</strong>
+                    <small>Common service ports</small>
+                </button>
+
+                <button class="profile" data-mode="standard">
+                    <div class="profile-number">02</div>
+                    <strong>STANDARD</strong>
+                    <small>Ports 1 — 1024</small>
+                </button>
+
+                <button class="profile" data-mode="custom">
+                    <div class="profile-number">03</div>
+                    <strong>CUSTOM</strong>
+                    <small>Choose your range</small>
+                </button>
+
+            </div>
+
+
+            <div id="customRange" class="custom-range hidden">
+
+                <span>PORT RANGE</span>
+
+                <input id="startPort" type="number" min="1" max="65535" value="1">
+
+                <span>→</span>
+
+                <input id="endPort" type="number" min="1" max="65535" value="100">
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- STATISTICS -->
+    <section class="stats-grid reveal">
+
+        <div class="stat-card glass">
+
+            <div class="stat-top">
+                <span class="stat-icon">⌖</span>
+                <span class="stat-index">01</span>
+            </div>
+
+            <div class="stat-label">TARGET</div>
+
+            <div id="domain" class="stat-value text-value">
+                —
+            </div>
+
+            <div class="stat-meta">
+                Resolved target
+            </div>
+
+        </div>
+
+
+        <div class="stat-card glass">
+
+            <div class="stat-top">
+                <span class="stat-icon">◇</span>
+                <span class="stat-index">02</span>
+            </div>
+
+            <div class="stat-label">IP ADDRESS</div>
+
+            <div id="ip" class="stat-value text-value">
+                —
+            </div>
+
+            <div class="stat-meta">
+                Resolved address
+            </div>
+
+        </div>
+
+
+        <div class="stat-card glass">
+
+            <div class="stat-top">
+                <span class="stat-icon">#</span>
+                <span class="stat-index">03</span>
+            </div>
+
+            <div class="stat-label">PORTS TESTED</div>
+
+            <div id="tested" class="stat-value">
+                0
+            </div>
+
+            <div class="stat-meta">
+                TCP checks
+            </div>
+
+        </div>
+
+
+        <div class="stat-card glass highlight">
+
+            <div class="stat-top">
+                <span class="stat-icon">◉</span>
+                <span class="live-pill">LIVE</span>
+            </div>
+
+            <div class="stat-label">OPEN PORTS</div>
+
+            <div id="open" class="stat-value green">
+                0
+            </div>
+
+            <div class="stat-meta">
+                Active services
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- DASHBOARD -->
+    <section class="dashboard-grid reveal">
+
+        <!-- ACTIVITY -->
+        <div class="card glass activity-card">
+
+            <div class="card-header">
+
+                <div>
+                    <div class="eyebrow">SCAN ACTIVITY</div>
+                    <h3>Live Progress</h3>
+                </div>
+
+                <div id="progressText" class="progress-number">
+                    0%
+                </div>
+
+            </div>
+
+
+            <div class="progress-track">
+                <div id="progressBar" class="progress-fill"></div>
+            </div>
+
+
+            <div class="progress-info">
+
+                <span id="scanMessage">
+                    Waiting for scan...
+                </span>
+
+                <span id="duration">
+                    —
+                </span>
+
+            </div>
+
+
+            <div class="activity-metrics">
+
+                <div>
+                    <span>OPEN</span>
+                    <strong id="openMetric">0</strong>
+                </div>
+
+                <div>
+                    <span>FILTERED</span>
+                    <strong id="filteredMetric">0</strong>
+                </div>
+
+                <div>
+                    <span>RESPONDED</span>
+                    <strong id="respondedMetric">0</strong>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- EXPOSURE -->
+        <div class="card glass exposure-card">
+
+            <div class="card-header">
+
+                <div>
+                    <div class="eyebrow">EXPOSURE</div>
+                    <h3>Risk Overview</h3>
+                </div>
+
+                <span class="mini-status">
+                    LIVE
+                </span>
+
+            </div>
+
+
+            <div class="risk-layout">
+
+                <div class="risk-ring">
+
+                    <div class="ring-inner">
+
+                        <strong id="riskCount">0</strong>
+
+                        <span>HIGH</span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="risk-list">
+
+                    <div class="risk-row">
+                        <span>
+                            <i class="risk-dot high"></i>
+                            High
+                        </span>
+
+                        <strong id="highRisk">0</strong>
+                    </div>
+
+                    <div class="risk-row">
+                        <span>
+                            <i class="risk-dot medium"></i>
+                            Medium
+                        </span>
+
+                        <strong id="mediumRisk">0</strong>
+                    </div>
+
+                    <div class="risk-row">
+                        <span>
+                            <i class="risk-dot low"></i>
+                            Low
+                        </span>
+
+                        <strong id="lowRisk">0</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- RESULTS -->
+    <section id="resultsSection" class="card glass results-card reveal">
+
+        <div class="card-header">
+
+            <div>
+                <div class="eyebrow">NETWORK TELEMETRY</div>
+                <h3>Live Port Intelligence</h3>
+            </div>
+
+            <div class="results-actions">
+
+                <span id="resultCount">
+                    0 results
+                </span>
+
+                <button id="exportBtn" class="export-button" onclick="exportReport()" disabled>
+                    EXPORT CSV
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>PORT</th>
+                        <th>STATE</th>
+                        <th>SERVICE</th>
+                        <th>RISK</th>
+                        <th>LATENCY</th>
+                        <th>BANNER / RESPONSE</th>
+                    </tr>
+                </thead>
+
+                <tbody id="results"></tbody>
+
+            </table>
+
+
+            <div id="emptyState" class="empty-state">
+
+                <div class="empty-orbit">
+                    <span></span>
+                </div>
+
+                <strong>No scan data</strong>
+
+                <span>
+                    Start an authorized scan to populate network intelligence.
+                </span>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- CONSOLE -->
+    <section id="historySection" class="card glass console-card reveal">
+
+        <div class="card-header">
+
+            <div>
+                <div class="eyebrow">SYSTEM TELEMETRY</div>
+                <h3>Activity Console</h3>
+            </div>
+
+            <div class="console-live">
+                <span class="status-dot"></span>
+                LIVE
+            </div>
+
+        </div>
+
+
+        <div id="log" class="console"></div>
+
+    </section>
+
+
+    <footer>
+        <span>PSYCHOPORT</span>
+        <i>//</i>
+        AUTHORIZED SECURITY TESTING
+        <i>//</i>
+        NETWORK INTELLIGENCE
+    </footer>
+
+</main>
+ 
+
+</div>
+
+<!-- MOBILE BOTTOM NAV -->
+
+<nav class="mobile-nav glass">
+
+ 
+<button class="mobile-nav-item active" onclick="goToSection('overview')">
+    <span>◉</span>
+    <small>Overview</small>
+</button>
+
+<button class="mobile-nav-item" onclick="focusScanner()">
+    <span>⌁</span>
+    <small>Scanner</small>
+</button>
+
+<button class="mobile-nav-item" onclick="focusHistory()">
+    <span>◷</span>
+    <small>Activity</small>
+</button>
+
+<button class="mobile-nav-item" onclick="openSettings()">
+    <span>⚙</span>
+    <small>Settings</small>
+</button>
+ 
+
+</nav>
+
+<!-- SETTINGS MODAL -->
+
+<div id="settingsOverlay" class="settings-overlay">
+
+ 
+<div class="settings-modal glass">
+
+    <div class="settings-header">
+
+        <div>
+            <div class="eyebrow">SYSTEM CONFIGURATION</div>
+            <h2>Settings</h2>
+            <p>Customize your PsychoPort workspace.</p>
+        </div>
+
+        <button class="settings-close" onclick="closeSettings()">×</button>
+
+    </div>
+
+
+    <div class="settings-content">
+
+        <div class="settings-section">
+
+            <div class="settings-section-title">
+                APPEARANCE
+            </div>
+
+
+            <div class="setting-row">
+
+                <div>
+                    <strong>Interface theme</strong>
+                    <span>Choose the visual accent system.</span>
+                </div>
+
+                <select id="themeSelect" onchange="changeTheme(this.value)">
+                    <option value="cyber">Cyber Lime</option>
+                    <option value="violet">Electric Violet</option>
+                    <option value="cyan">Arctic Cyan</option>
+                </select>
+
+            </div>
+
+
+            <div class="setting-row">
+
+                <div>
+                    <strong>Glass intensity</strong>
+                    <span>Control transparency and depth.</span>
+                </div>
+
+                <input
+                    id="glassRange"
+                    type="range"
+                    min="20"
+                    max="80"
+                    value="55"
+                    oninput="changeGlass(this.value)"
+                >
+
+            </div>
+
+
+            <div class="setting-row">
+
+                <div>
+                    <strong>Motion effects</strong>
+                    <span>Animated dashboard transitions.</span>
+                </div>
+
+                <label class="switch">
+                    <input id="motionToggle" type="checkbox" checked onchange="toggleMotion(this.checked)">
+                    <span></span>
+                </label>
+
+            </div>
+
+        </div>
+
+
+        <div class="settings-section">
+
+            <div class="settings-section-title">
+                SCANNER
+            </div>
+
+
+            <div class="setting-row">
+
+                <div>
+                    <strong>Default scan profile</strong>
+                    <span>Select the profile used when opening the scanner.</span>
+                </div>
+
+                <select id="defaultProfile" onchange="setDefaultProfile(this.value)">
+                    <option value="quick">Quick</option>
+                    <option value="standard">Standard</option>
+                    <option value="custom">Custom</option>
+                </select>
+
+            </div>
+
+
+            <div class="setting-row">
+
+                <div>
+                    <strong>Auto-scroll console</strong>
+                    <span>Keep the newest telemetry visible.</span>
+                </div>
+
+                <label class="switch">
+                    <input id="autoScrollToggle" type="checkbox" checked>
+                    <span></span>
+                </label>
+
+            </div>
+
+        </div>
+
+
+        <div class="settings-section">
+
+            <div class="settings-section-title">
+                DATA
+            </div>
+
+
+            <div class="setting-row">
+
+                <div>
+                    <strong>Clear activity console</strong>
+                    <span>Remove all current console messages.</span>
+                </div>
+
+                <button class="danger-action" onclick="clearConsole()">
+                    CLEAR
+                </button>
+
+            </div>
+
+
+            <div class="setting-row">
+
+                <div>
+                    <strong>Reset dashboard</strong>
+                    <span>Clear the current scan results.</span>
+                </div>
+
+                <button class="secondary-action" onclick="resetResults(); closeSettings()">
+                    RESET
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div class="settings-section about-section">
+
+            <div class="settings-section-title">
+                SYSTEM
+            </div>
+
+            <div class="system-info-grid">
+
+                <div>
+                    <span>APPLICATION</span>
+                    <strong>PSYCHOPORT</strong>
+                </div>
+
+                <div>
+                    <span>VERSION</span>
+                    <strong>2.0</strong>
+                </div>
+
+                <div>
+                    <span>ENGINE</span>
+                    <strong>TCP INTELLIGENCE</strong>
+                </div>
+
+                <div>
+                    <span>STATUS</span>
+                    <strong class="green">ONLINE</strong>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+ 
+
+</div>
+
+<script src="/static/app.js"></script>
+
+</body>
+</html>
